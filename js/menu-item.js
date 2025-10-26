@@ -1,28 +1,61 @@
 import { itemAPI } from "./api.js";
 
+const CACHE_KEY = "cachedMenu";
+const CACHE_TTL = 1000 * 60 * 5;
+
 export async function loadMenus() {
-  const loading = document.getElementById("loading"); // Spinner
   const menu1Container = document.getElementById("menu-list");
   const menu2Container = document.getElementById("menu-list-2");
 
+  const cachedStr = localStorage.getItem(CACHE_KEY);
+  if (cachedStr) {
+    const cached = JSON.parse(cachedStr);
+    if (Date.now() - cached.timestamp < CACHE_TTL) {
+      renderMenu(cached.menu1, "menu-list", "/public/food-bun.png");
+      renderMenu(cached.menu2, "menu-list-2", "/public/food-mi.png");
+      return;
+    }
+  }
+
+  const spinner1 = createSpinner();
+  const spinner2 = createSpinner();
+  menu1Container.appendChild(spinner1);
+  menu2Container.appendChild(spinner2);
+
   try {
-    if (loading) loading.classList.remove("d-none");
-
-    menu1Container.innerHTML = "";
-    menu2Container.innerHTML = "";
-
     const menu1 = await itemAPI.getAll(1, 4);
     const menu2 = await itemAPI.getAll(2, 4);
 
     renderMenu(menu1.data, "menu-list", "/public/food-bun.png");
     renderMenu(menu2.data, "menu-list-2", "/public/food-mi.png");
 
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({
+        menu1: menu1.data,
+        menu2: menu2.data,
+        timestamp: Date.now(),
+      })
+    );
   } catch (error) {
     console.error("Lỗi khi tải dữ liệu menu:", error);
     menu1Container.innerHTML = `<p class="text-center text-danger">Không thể tải dữ liệu.</p>`;
+    menu2Container.innerHTML = `<p class="text-center text-danger">Không thể tải dữ liệu.</p>`;
   } finally {
-    if (loading) loading.classList.add("d-none");
+    spinner1.remove();
+    spinner2.remove();
   }
+}
+
+function createSpinner() {
+  const div = document.createElement("div");
+  div.classList.add("d-flex", "justify-content-center", "align-items-center", "my-3");
+  div.innerHTML = `
+    <div class="spinner-border text-brown" role="status">
+      <span class="visually-hidden">Đang tải...</span>
+    </div>
+  `;
+  return div;
 }
 
 function renderMenu(items, containerId, img) {
