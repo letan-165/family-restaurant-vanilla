@@ -42,16 +42,24 @@
   </div>
 </nav>
 
-  <!-- MAIN -->
+    <!-- MAIN -->
   <main class="py-5 bg2">
-    <div class="container">
+    <div class="container menu-wrapper position-relative">
       <!-- Header menu -->
       <div class="d-flex justify-content-between align-items-center mb-4">
-          <h1 class="fw-bold text-brown">Thực đơn</h1>
-          <div class="cart-box p-3 rounded-3 border border-2 text-center" style="background-color: #f8f8f8;">
-              <button class="btn fw-bold mb-2" style="background-color: #5B3920; color: white;">🛒 ĐẶT MÓN</button>
-              <p class="m-0">Tổng: <span>0đ</span></p>
-          </div>
+        <h1 class="fw-bold text-brown">Thực đơn</h1>
+        <div class="cart-box p-3 rounded-3 border border-2 text-center" style="background-color: #f8f8f8;">
+          <button class="btn fw-bold mb-2" style="background-color: #5B3920; color: white;">🛒 ĐẶT MÓN</button>
+          <p class="m-0">Tổng: <span>0đ</span></p>
+        </div>
+      </div>
+
+      <!-- 🔄 LOADING -->
+      <div id="loading" class="loading-overlay d-none">
+        <div class="spinner-border text-brown" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">Đang tải...</span>
+        </div>
+        <p class="mt-3 fw-bold text-brown">Đang tải dữ liệu...</p>
       </div>
 
       <!-- MÓN ĂN CHÍNH -->
@@ -65,9 +73,9 @@
         <h2 class="fw-bold mb-3 text-brown">Món thêm</h2>
         <div class="row g-4" id="menu-list-2"></div>
       </section>
-
     </div>
   </main>
+
 
   <!-- FOOTER -->
   <footer class="text-center text-white py-3" style="background-color:#5b3920;">
@@ -98,8 +106,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Custom JS -->
-  <script src="/js/menu-item.js"></script>
-  <script src="/js/menu-effect.js"></script>
+  <script type="module" src="../js/menu-item.js"></script>
+  <script type="module" src="../js/menu-effect.js"></script>
   <script src="/js/layout.js"></script>
 </body>
 </html>

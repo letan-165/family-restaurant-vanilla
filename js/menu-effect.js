@@ -1,10 +1,14 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { loadMenus } from "./menu-item.js";
+
+async function initMenuPage() {
+  await loadMenus();
+
   const dishes = document.querySelectorAll(".dish");
   const totalDisplay = document.querySelector(".cart-box span");
 
   function updateTotal() {
     let total = 0;
-    dishes.forEach(dish => {
+    dishes.forEach((dish) => {
       const qty = parseInt(dish.querySelector(".dish-actions span").textContent);
       const priceText = dish.querySelector(".dish-price").textContent.replace(/[^\d]/g, "");
       total += qty * parseInt(priceText);
@@ -12,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     totalDisplay.textContent = total.toLocaleString("vi-VN") + "đ";
   }
 
-  dishes.forEach(dish => {
+  dishes.forEach((dish) => {
     const minusBtn = dish.querySelector("button:first-child");
     const plusBtn = dish.querySelector("button:last-child");
     const qtySpan = dish.querySelector(".dish-actions span");
@@ -33,11 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-});
 
-const orderButton = document.querySelector('.cart-box button');
-    const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+  const orderButton = document.querySelector(".cart-box button");
+  const orderModal = new bootstrap.Modal(document.getElementById("orderModal"));
+  orderButton.addEventListener("click", () => orderModal.show());
+}
 
-    orderButton.addEventListener('click', () => {
-      orderModal.show();
-    });
+document.addEventListener("DOMContentLoaded", initMenuPage);
