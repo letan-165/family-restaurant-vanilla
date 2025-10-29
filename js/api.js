@@ -1,6 +1,6 @@
 const LOCAL = "http://localhost:8080";
 const SERVER = "https://noble-debee-tandev-06be2084.koyeb.app";
-const BASE_URL = SERVER;
+const BASE_URL = LOCAL;
 
 async function request(endpoint, options = {}) {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
@@ -12,7 +12,7 @@ async function request(endpoint, options = {}) {
 }
 
 export const itemAPI = {
-  getAll: (page, limit) => request(`/items?page=${page}&limit=${limit}&sortField=price&sortOrder=asc`),
+  getAll: (page, limit) => request(`/items?page=${page}&limit=${limit}&sortField=index&sortOrder=asc`),
   get: (id) => request(`/items/${id}`),
 };
 
