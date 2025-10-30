@@ -1,22 +1,33 @@
 const LOCAL = "http://localhost:8080";
 const SERVER = "https://noble-debee-tandev-06be2084.koyeb.app";
-const BASE_URL = LOCAL;
+export const BASE_URL = LOCAL;
 
 async function request(endpoint, options = {}) {
+  const token = localStorage.getItem("token");
+
+  const headers = { "Content-Type": "application/json" };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
   const res = await fetch(`${BASE_URL}${endpoint}`, {
-    headers: { "Content-Type": "application/json" },
+    headers,
     ...options,
   });
-  if (!res.ok) throw new Error("Request lỗi!");
+
+  if (!res.ok) throw new Error(`Request lỗi: ${res.status}`);
   return res.json();
 }
 
 export const itemAPI = {
-  getAll: (page, limit) => request(`/items?page=${page}&limit=${limit}&sortField=index&sortOrder=asc`),
+  getAll: (page, limit) =>
+    request(`/items?page=${page}&limit=${limit}&sortField=index&sortOrder=asc`),
   get: (id) => request(`/items/${id}`),
 };
 
 export const orderAPI = {
-  getAllByCustomer: (userID) => request(`/orders/user/${userID}?page=2&limit=5&status=completed&sortField=price&sortOrder=asc`),
-  booking: (data) => request("/orders", { method: "POST", body: JSON.stringify(data) }),
+  getAllByCustomer: (page, limit, userID, status) =>
+    request(
+      `/orders/user/${userID}?page=${page}&limit=${limit}&status=${status}&sortField=price&sortOrder=asc`
+    ),
+  booking: (data) =>
+    request("/orders", { method: "POST", body: JSON.stringify(data) }),
 };

@@ -21,8 +21,71 @@ body {
 
 .card-img-top {
   width: 100%;
-  height: 180px;         
-  object-fit: cover;    
+  height: 180px;
+  object-fit: cover;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+}
+
+/* Tabs styling nâng cao - paste vào layout.css */
+
+/* container responsive: cho phép scroll ngang trên màn hình nhỏ */
+#statusTabs {
+  gap: 0.5rem;
+  padding: 0.25rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* chung cho mỗi nút */
+#statusTabs .nav-link {
+  border: none;
+  padding: 0.45rem 1.05rem;
+  border-radius: 999px; /* bo tròn pill */
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #6b4a36; /* nâu trung tính cho chữ chưa active */
+  background: rgba(255, 255, 255, 0.06); /* nhẹ để tách khỏi background */
+  transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+  margin: 0 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* hover effect */
+#statusTabs .nav-link:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+  color: #5b3920;
+}
+
+/* active style - gradient vàng, chữ nâu đậm */
+#statusTabs .nav-link.active {
+  color: #5b3920 !important;
+  background: linear-gradient(90deg, #fff1a8 0%, #ffd966 100%) !important;
+  box-shadow: 0 6px 18px rgba(91, 57, 32, 0.12);
+}
+
+/* focus accessibility */
+#statusTabs .nav-link:focus {
+  outline: 3px solid rgba(255, 217, 102, 0.18);
+  outline-offset: 2px;
+}
+
+/* nhỏ hơn: giảm padding */
+@media (max-width: 576px) {
+  #statusTabs .nav-link {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.9rem;
+    margin: 0 0.15rem;
+  }
+}
+
+/* nếu muốn tab nằm sát giữa container lớn hơn */
+@media (min-width: 768px) {
+  #statusTabs.justify-content-center {
+    justify-content: center;
+  }
 }
