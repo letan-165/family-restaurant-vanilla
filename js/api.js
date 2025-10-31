@@ -26,7 +26,7 @@ export const itemAPI = {
 export const orderAPI = {
   getAllByCustomer: (page, limit, userID, status) =>
     request(
-      `/orders/user/${userID}?page=${page}&limit=${limit}&status=${status}&sortField=price&sortOrder=asc`
+      `/orders/user/${userID}?page=${page}&limit=${limit}&status=${status}&sortField=timeBooking&sortOrder=desc`
     ),
   booking: (data) =>
     request("/orders", { method: "POST", body: JSON.stringify(data) }),

@@ -40,7 +40,12 @@ export async function loadMenus() {
 
 function createSpinner() {
   const div = document.createElement("div");
-  div.classList.add("d-flex", "justify-content-center", "align-items-center", "my-3");
+  div.classList.add(
+    "d-flex",
+    "justify-content-center",
+    "align-items-center",
+    "my-3"
+  );
   div.innerHTML = `
     <div class="spinner-border text-brown" role="status">
       <span class="visually-hidden">Đang tải...</span>
@@ -60,13 +65,11 @@ function renderMenu(items, containerId) {
   container.innerHTML = items
     .map((item) => {
       const imgSrc =
-        item.img && item.img.trim() !== ""
-          ? item.img
-          : "/public/logo.png";
+        item.img && item.img.trim() !== "" ? item.img : "/public/logo.png";
 
       return `
         <div class="col-6 col-md-3">
-          <div class="card text-center dish border-2 p-1">
+          <div class="card text-center dish border-2 p-1" data-id="${item.id}">
             <img 
               src="${imgSrc}" 
               class="card-img-top rounded-3" 
@@ -74,8 +77,10 @@ function renderMenu(items, containerId) {
               onerror="this.onerror=null; this.src='/public/no-image.png';"
             >
             <div class="card-body p-2">
-              <p class="fw-bold">${item.name}</p>
-              <p class="dish-price mb-2">${item.price.toLocaleString("vi-VN")}đ</p>
+              <p class="fw-bold dish-name">${item.name}</p>
+              <p class="dish-price mb-2">${item.price.toLocaleString(
+                "vi-VN"
+              )}đ</p>
               <div class="dish-actions d-flex justify-content-center align-items-center gap-2">
                 <button class="btn btn-sm btn-dark rounded-circle">-</button>
                 <span>0</span>
