@@ -1,6 +1,6 @@
 const LOCAL = "http://localhost:8080";
 const SERVER = "https://noble-debee-tandev-06be2084.koyeb.app";
-export const BASE_URL = LOCAL;
+export const BASE_URL = SERVER;
 
 async function request(endpoint, options = {}) {
   const token = localStorage.getItem("token");
