@@ -20,28 +20,26 @@ export async function loadList() {
 
 
   try {
-      const menu = await itemAPI.getAll(1, 4);
-  
-      renderMenu(menu.data, "menu-list");
-  
-      localStorage.setItem(
-        CACHE_KEY,
-        JSON.stringify({
-          menu: menu.data,
-          timestamp: Date.now(),
-        })
-      );
-    } catch (error) {
-      console.error("Lỗi khi tải dữ liệu menu:", error);
-      container.innerHTML = `<p class="text-center text-danger">Không thể tải dữ liệu.</p>`;
-    } finally {
-      spinner.remove();
-    }
+    const menu = await itemAPI.getAll(1, 4);
 
+    renderMenu(menu.data, "menu-list");
+
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({
+        menu: menu.data,
+        timestamp: Date.now(),
+      })
+    );
+  } catch (error) {
+    console.error("Lỗi khi tải dữ liệu menu:", error);
+    container.innerHTML = `<p class="text-center text-danger">Không thể tải dữ liệu.</p>`;
+  } finally {
+    spinner.remove();
+  }
 }
 
-
-function renderMenu(items,containerId) {
+function renderMenu(items, containerId) {
   const container = document.getElementById(containerId);
 
   if (!items || items.length === 0) {
@@ -51,7 +49,8 @@ function renderMenu(items,containerId) {
 
   container.innerHTML = items
     .map((item) => {
-      const imgSrc = item.img && item.img.trim() !== "" ? item.img : "/public/logo.png";
+      const imgSrc =
+        item.img && item.img.trim() !== "" ? item.img : "/public/logo.png";
 
       return `
         <div class="col-6 col-md-3">
@@ -59,7 +58,9 @@ function renderMenu(items,containerId) {
             <img src="${imgSrc}" class="card-img-top" alt="${item.name} ">
             <div class="card-body">
               <h6 class="card-title">${item.name}</h6>
-              <p class="card-text fw-bold">${item.price.toLocaleString("vi-VN")}₫</p>
+              <p class="card-text fw-bold">${item.price.toLocaleString(
+                "vi-VN"
+              )}₫</p>
             </div>
           </div>
         </div>
@@ -68,10 +69,14 @@ function renderMenu(items,containerId) {
     .join("");
 }
 
-
 function createSpinner() {
   const div = document.createElement("div");
-  div.classList.add("d-flex", "justify-content-center", "align-items-center", "my-3");
+  div.classList.add(
+    "d-flex",
+    "justify-content-center",
+    "align-items-center",
+    "my-3"
+  );
   div.innerHTML = `
     <div class="spinner-border text-brown" role="status">
       <span class="visually-hidden">Đang tải...</span>
