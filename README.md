@@ -23,8 +23,9 @@ The goal is to provide a simple website that allows customers to easily access r
 
 ## Demo
 
-* Frontend: https://bunnuoccole.netlify.app/
+* Frontend: (https://bunnuoccole.netlify.app/): https://github.com/letan-165/family-restaurant-vanilla
 * Backend (Golang API): https://github.com/letan-165/family-restaurant-golang
+* Android: Internal application (private, used by the restaurant owner): https://github.com/letan-165/family-restaurant-android
 
 ## Tech Stack
 
